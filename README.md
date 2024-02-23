@@ -8,7 +8,7 @@ pueden ver el video paso a paso en el siguiente enlace: https://youtu.be/puYWiZD
 
 
 ```bash
-git clone https://github.com/JPierr3/bigdateros-whatsappbot-python.git
+git clone ssh://git@emorell-dt.dnsalias.com:13024/mellon/chatbotwms.git
 ```
     
 ## Funcionalidades
@@ -21,23 +21,32 @@ git clone https://github.com/JPierr3/bigdateros-whatsappbot-python.git
 - Enviar documentos pdf
 
 
-
 ## Para probarlo localmente
 
 1. Dirigete al directorio donde descargaste el proyecto
 
 ```bash
-  cd bigdateros-whatsappbot-python
+  cd chatbotwms
 ```
-2. Crea un ambiente virtual con la version de python 3.10
+2. Crea un ambiente virtual con al menos la version de [python 3.10](https://www.python.org/downloads/)
+
+Requiere pip y virtualenv
+```commandline
+pip install pip
+pip install virtualenv
+```
 
 ```bash
-  virtualenv -p 3.10.11 .venv
+  virtualenv .venv
 ```
 3. Activa el ambiente virtual
-
+Linux/Mac
 ```bash
   source .venv/bin/activate
+```
+Windows
+```commandline
+    .venv\Scripts\activate
 ```
 4. Instala las dependencias
 
@@ -45,19 +54,19 @@ git clone https://github.com/JPierr3/bigdateros-whatsappbot-python.git
   pip install -r requirements.txt
 ```
 
-5. Corre el aplicativo
+5. Corre la aplicacion
 
 ```bash
   python app.py
 ```
-
+6. Checkear que este levantada http://127.0.0.1:5000/bienvenido
 
 ## Simular mensajes del usuario con postman
 
 ```javascript
 Ingresar la URL
 http://127.0.0.1:5000/webhook
-
+Hacer un POST
 
 en body, seleccionar "raw" y tipo "JSON", no olvidar agregar tu número
 {
