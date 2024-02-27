@@ -1,8 +1,12 @@
-token = 'bigdateros'
+token = 'quadrant'
 
 whatsapp_token = 'EAAFE50moTykBO1G8bjzXww6f8VYZBbdkPL9zZBuTZCyvD8ImH6kBvQvkaVVhwZCnrCSSiUNonnMsEZC4ysI69FKN0iH8QsL1NB3CfsH9hxfOZC2lvsNZCqfwnj90wXlKN95bUQEhv8Wbo0zB8BB61WhbZCbjzGZAxb4ZANH50YOy5mjvZBdqpp6B24B5lBoX0IT6PZAC'
 
 whatsapp_url = 'https://graph.facebook.com/v18.0/262899716898229/messages'
+
+whatsapp_id_number = 262899716898229
+
+whatsapp_id = 259637087213484
 
 stickers = {
     "poyo_feliz": 984778742532668,
@@ -20,4 +24,5 @@ stickers = {
     "gato_cansado": 1021308728970759
 }
 
-document_url = "https://www.africau.edu/images/default/sample.pdf"
+document_url = "https://www.quadrant.com.ar/documentoimplementacionlogifleet.pdf"
+error_url = "https://www.quadrant.com.ar/reporteerroreslogifleet.pdf"

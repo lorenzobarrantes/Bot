@@ -1,0 +1,8 @@
+2024-02-26 18:41:59 - Lorenzo Barrantes: hola
+2024-02-26 18:42:01 - Botifleet: ¡Hola! 👋 Bienvenido a WMS Logifleet. ¿Cómo podemos ayudarle hoy?
+2024-02-26 18:42:07 - Lorenzo Barrantes: ✅ Consultas
+2024-02-26 18:42:09 - Botifleet: Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?
+2024-02-26 18:42:17 - Lorenzo Barrantes: Inventario
+2024-02-26 18:42:19 - Botifleet: No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendra todo lo que necesita para resolverla. 
+2024-02-26 18:42:24 - Lorenzo Barrantes: ⛔ No, gracias
+2024-02-26 18:42:26 - Botifleet: {"messaging_product": "whatsapp", "recipient_type": "individual", "to": "541150375327", "type": "text", "text": {"body": "Perfecto! No dudes en contactarnos si tienes m\u00e1s preguntas. \u00a1Hasta luego!"}}
