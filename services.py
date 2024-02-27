@@ -1,19 +1,27 @@
 import requests
+
+import ingresos
 import sett
 import json
 import time
 from datetime import datetime, timedelta
 
-ultimo_mensaje = ""
+ultimo_msj = ""
 ultimo_tiempo = datetime.now()
-tiempo_inactividad = {}
-estado_conversaciones = {}
-msje_boti = ""
-saludo = ['hola', 'buenas', 'holaa', 'ayuda']
-opciones = ['✅ consultas', '📎 guia de usuario']
+time_inactive = {}
+est_conv = {}
+msj_bot = ""
+menuIng = ("Ingresos\n"
+           "Seleccione la consulta que tiene\n"
+           "\n"
+           "A. Ingrese mal un remito\n"
+           "B. Concilie mal la mercaderia\n"
+           "C. Ubique mal la mercaderia\n"
+           "D. Menu Principal\n"
+           )
 
 
-def obtener_Mensaje_whatsapp(message):
+def obtain_Msj_whatsapp(message):
     if 'type' not in message:
         text = 'mensaje no reconocido'
         return text
@@ -33,7 +41,7 @@ def obtener_Mensaje_whatsapp(message):
     return text
 
 
-def enviar_Mensaje_whatsapp(data):
+def send_Msj_whatsapp(data):
     try:
         whatsapp_token = sett.whatsapp_token
         whatsapp_url = sett.whatsapp_url
@@ -67,14 +75,14 @@ def text_Message(number, text):
     return data
 
 
-def buttonReply_Message(number, options, body, footer, sedd, messageId):
+def buttonReply_Message(number, options, body, footer, seed, messageId):
     buttons = []
     for i, option in enumerate(options):
         buttons.append(
             {
                 "type": "reply",
                 "reply": {
-                    "id": sedd + "_btn_" + str(i + 1),
+                    "id": seed + "_btn_" + str(i + 1),
                     "title": option
                 }
             }
@@ -103,12 +111,12 @@ def buttonReply_Message(number, options, body, footer, sedd, messageId):
     return data
 
 
-def listReply_Message(number, options, body, footer, sedd, messageId):
+def listReply_Message(number, options, body, footer, seed, messageId):
     rows = []
     for i, option in enumerate(options):
         rows.append(
             {
-                "id": sedd + "_row_" + str(i + 1),
+                "id": seed + "_row_" + str(i + 1),
                 "title": option,
                 "description": ""
             }
@@ -179,12 +187,12 @@ def get_media_id(media_name, media_type):
     media_id = ""
     if media_type == "sticker":
         media_id = sett.stickers.get(media_name, None)
-    elif media_type == "image":
-        media_id = sett.images.get(media_name, None)
-    elif media_type == "video":
-        media_id = sett.videos.get(media_name, None)
-    elif media_type == "audio":
-        media_id = sett.audio.get(media_name, None)
+    # elif media_type == "image":
+    #     media_id = sett.images.get(media_name, None)
+    # elif media_type == "video":
+    #     media_id = sett.videos.get(media_name, None)
+    # elif media_type == "audio":
+    #     media_id = sett.audio.get(media_name, None)
     return media_id
 
 
@@ -233,135 +241,215 @@ def markRead_Message(messageId):
     return data
 
 
-def registro(number, nombre, text):
+def registerChat(number, name, text):
     hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Crear el mensaje a registrar
-    mensaje_registro = f"{hora_actual} - {nombre}: {text}\n"
+    msj_registro = f"{hora_actual} - {name}: {text}\n"
 
     # Guardar el mensaje en un archivo de texto
-    with open(f"conversacion_{number}.txt", "a", encoding="utf-8") as archivo:
-        archivo.write(mensaje_registro)
+    with open(f"chat_{number}.txt", "a", encoding="utf-8") as archivo:
+        archivo.write(msj_registro)
     archivo.close()
 
-def administrar_chatbot(text, number, messageId, name):
-    global ultimo_mensaje
-    global ultimo_tiempo
-    global estado_conversaciones
-    global msje_boti
 
-    registro(number, name, text)
+def sendMenu(number, menu=("🏡 Menu Principal.\n"
+                           "Escribe la opción que estas buscando.\n"
+                           "\n"
+                           "A. Consultas\n"
+                           "B. Reporte de Error\n"
+                           "C. Guía de Usuario\n"
+                           "D. Ideas/Sugerencias\n"
+    # "E. \n"
+    # "F. \n"
+    # "G. \n"
+    # "H. \n"
+    # "I. \n"
+    # "J. \n"
+                           )):
+    text = text_Message(number, menu)
+    registerChat(number, 'Botifleet', menu)
+    send_Msj_whatsapp(text)
+
+
+def cont_conv(number, name, messageId):
+    time.sleep(5)
+    body = f"{name.split()[0]}, podemos ayudarte en algo mas?"
+    footer = "Quadrant"
+    options = ["✅ Menu Principal", "❌ Finalizar"]
+
+    replyButtonData = buttonReply_Message(number, options, body, footer, "sed1", messageId)
+    return replyButtonData
+
+
+def admin_chatbot(text, number, messageId, name):
+    global ultimo_msj
+    global ultimo_tiempo
+    global est_conv
+    global msj_bot
+    global menuIng
+
+    registerChat(number, name, text)
 
     text = text.lower()  # mensaje que envio el usuario
-    list = []
+    lista = []
     print("mensaje del usuario: ", text)
 
     markRead = markRead_Message(messageId)
-    list.append(markRead)
+    lista.append(markRead)
     time.sleep(2)
 
     # Actualizar el tiempo y el mensaje más reciente
-    ultimo_mensaje = text
+    ultimo_msj = text
 
-    revisar_inactividad(number)
+    review_time(number)
 
-    if estado_conversaciones[number] == 'inicio' or text in saludo:
-        body = "¡Hola! 👋 Bienvenido a WMS Logifleet. ¿Cómo podemos ayudarle hoy?"
-        footer = "Quadrant"
-        options = ["✅ Consultas", "📎 Reportar Error"]
-        msje_boti = body
+    if est_conv[number] == 'inicio':
+        with open(f"chat_{number}.txt", "a", encoding="utf-8") as archivo:
+            archivo.write('\n')
+        archivo.close()
+        first_text = text_Message(number, f"¡Hola, {name.split()[0]}! 👋 Bienvenido a WMS Logifleet by Quadrant")
+        send_Msj_whatsapp(first_text)
+        time.sleep(2)
 
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed1", messageId)
-        # replyReaction = replyReaction_Message(number, messageId, "🫡")
-        # list.append(replyReaction)
-        list.append(replyButtonData)
-        estado_conversaciones[number] = 'en curso'
+        sendMenu(number)
 
-    elif estado_conversaciones[number] == 'en curso' or text in opciones:
-        if "consultas" in text:
+        # body = f"¡Hola, {name.split()[0]}! 👋 Bienvenido a WMS Logifleet. ¿Cómo podemos ayudarle hoy?"
+        # footer = "Quadrant"
+        #
+        # options = ["✅ Consultas", "🔍 Menu Principal"]
+        # msj_bot = body
+        #
+        # replyButtonData = buttonReply_Message(number, options, body, footer, "sed1", messageId)
+        # # replyReaction = replyReaction_Message(number, messageId, "🫡")
+        # # list.append(replyReaction)
+        # lista.append(replyButtonData)
+        est_conv[number] = 'en curso'
+
+    elif est_conv[number] == 'en curso':
+        if "consultas" in text or text == 'a':
             body = "Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?"
             footer = "Quadrant"
-            options = ["Ingresos", "Egresos", "Inventario", "Datos"]
+            options = ["Ingresos", "Egresos", "Inventario", "Maestro de Datos", "Atras"]
 
             listReplyData = listReply_Message(number, options, body, footer, "sed2", messageId)
             # sticker = sticker_Message(number, get_media_id("perro_traje", "sticker"))
-            msje_boti = body
-            list.append(listReplyData)
+            msj_bot = body
+            lista.append(listReplyData)
 
-        elif "reportar error" in text:
-            # sticker = sticker_Message(number, get_media_id("pelfet", "sticker"))
-            textMessage = text_Message(number,
-                                       "Gracias por reportar los errores. Por favor sigue los pasos detallados en el siguiente documento")
-
-            # enviar_Mensaje_whatsapp(sticker)
-            msje_boti = textMessage
-            enviar_Mensaje_whatsapp(textMessage)
-            time.sleep(3)
-
+        elif (text == 'b') or ("reportar error" in text):
+            send(number, ("Gracias por reportar los errores. \n"
+                          "En el siguiente documento encontraras una serie de pasos a seguir para el "
+                          "reporte de errores, "
+                          "dentro de este habra un boton para reportar via email. "
+                          "Porfavor, llena los espacios solicitados para hacer un correcto seguimiento "
+                          "de la solicitud."))
             document = document_Message(number, sett.error_url, "", "Reporte de errores.pdf")
-            enviar_Mensaje_whatsapp(document)
-            time.sleep(3)
-            estado_conversaciones[number] = 'inicio'
+            send_Msj_whatsapp(document)
+            replyButtonData = cont_conv(number, name, messageId)
+            msj_bot = 'Reporte errores'
+            lista.append(replyButtonData)
 
-
-        elif "sí, envía el pdf" in text:
+        elif "sí, envía el pdf" in text or text == 'c':
             # sticker = sticker_Message(number, get_media_id("pelfet", "sticker"))
-            textMessage = text_Message(number, "Genial, por favor espera un momento.")
-
-            # enviar_Mensaje_whatsapp(sticker)
-            enviar_Mensaje_whatsapp(textMessage)
-            time.sleep(3)
-            msje_boti = 'Documento Guia Usuario.pdf'
-
+            send(number, "Perfecto, por favor espera un momento.")
+            msj_bot = 'Documento Guia Usuario.pdf'
             document = document_Message(number, sett.document_url, "Listo 👍🏻", "Guía de Usuario LogiFleet.pdf")
-            enviar_Mensaje_whatsapp(document)
-            time.sleep(3)
-            estado_conversaciones[number] = 'inicio'
+            send_Msj_whatsapp(document)
+            replyButtonData = cont_conv(number, name, messageId)
+            msj_bot = 'Guia de usuario'
+            lista.append(replyButtonData)
+
+        elif "ingresos" in text or 'menu ingresos' in text:
+            est_conv[number] = 'consulta - ingreso'
+
+            sendMenu(number, menuIng)
 
         elif "no, gracias" in text:
+            replyButtonData = cont_conv(number, name, messageId)
+            msj_bot = 'Continuar Conversacion?'
+            lista.append(replyButtonData)
+
+        elif 'finalizar' in text:
             textMessage = text_Message(number,
                                        "Perfecto! No dudes en contactarnos si tienes más preguntas. ¡Hasta luego!")
-            list.append(textMessage)
-            msje_boti = textMessage
-            estado_conversaciones[number] = 'inicio'
+            lista.append(textMessage)
+            msj_bot = 'Conversacion Finalizada\n' \
+                      '********************************************'
+            est_conv[number] = 'inicio'
+        elif "menu principal" in text or "atras" in text:
+            est_conv[number] = 'en curso'
+            sendMenu(number)
 
         else:
-            options = ["✅ Sí, envía el PDF.", "⛔ No, gracias"]
+            options = ["✅ Sí, envía el PDF.", "🏡 Menu Principal"]
             body = "No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendra todo lo " \
-                   "que necesita para resolverla. "
+                   "que necesita para resolverla, o si quiere puede volver al menu principal "
             footer = "Quadrant"
-            msje_boti = body
+            msj_bot = body
             replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
-            list.append(replyButtonData)
-            
-    registro(number, 'Botifleet', msje_boti)
+            lista.append(replyButtonData)
 
-    for item in list:
-        enviar_Mensaje_whatsapp(item)
+    elif est_conv[number] == 'consulta - ingreso':
+        resp, continua = ingresos.option_ing(text)
+        if resp == 'menu ingresos':
+            sendMenu(number, menuIng)
+            continua = False
+        elif resp == 'menu principal':
+            est_conv[number] = 'en curso'
+            sendMenu(number)
+            continua = False
+        else:
+            send(number, resp)
+
+        if continua:
+            est_conv[number] = 'en curso'
+            options = ["✅ Menu Ingresos", "🏡 Menu Principal"]
+            body = "Espero que esto haya resolvido su consulta\n" \
+                   "por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta " \
+                   "conversacion, gracias. "
+            footer = "Quadrant"
+            msj_bot = body
+            replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
+            lista.append(replyButtonData)
+
+    if msj_bot != '':
+        registerChat(number, 'Botifleet', msj_bot)
+        msj_bot = ''
+    feedback()
+
+    for item in lista:
+        send_Msj_whatsapp(item)
         ultimo_tiempo = datetime.now()
-        # msje_boti = json.loads(item.split("Mensaje: ")[1])
-        tiempo_inactividad[number] = ultimo_tiempo
+        time_inactive[number] = ultimo_tiempo
 
 
-def revisar_inactividad(number):
+def send(number, text):
+    textMessage = text_Message(number, text)
+    if msj_bot != '':
+        registerChat(number, 'Botifleet', text)
+    send_Msj_whatsapp(textMessage)
+    time.sleep(3)
+
+
+def feedback():
+    pass
+
+
+def review_time(number):
     global ultimo_tiempo
-    global estado_conversaciones
-    global tiempo_inactividad
+    global est_conv
+    global time_inactive
 
-    if number not in estado_conversaciones:
-        estado_conversaciones[number] = "inicio"
-        print('inicio')
+    if number not in est_conv:
+        est_conv[number] = 'inicio'
         return
 
     tiempo_actual = datetime.now()
-    print(tiempo_actual)
-    tiempo_inactivo = tiempo_actual - tiempo_inactividad[number]
-    print(tiempo_inactivo)
-    print(estado_conversaciones)
-    # Si el tiempo de inactividad es mayor a 30 minutos, reiniciar la conversación
-    if tiempo_inactivo > timedelta(minutes=30):
-        estado_conversaciones[number] = "inicio"
-        print(estado_conversaciones)
+    inactive_real = tiempo_actual - time_inactive[number]
+    # Si el tiempo de inactividad es mayor a 60 minutos, reiniciar la conversación
+    if inactive_real > timedelta(minutes=60):
+        est_conv[number] = "inicio"
 
 
 # este codigo soluciona el agregado del 9 en Argentina
@@ -369,10 +457,7 @@ def replace_start(s):
     st = str(s)
     number = st[3:]
     if st.startswith("549"):
-        newst = "54" + number
-        return newst
+        newest = "54" + number
+        return newest
     else:
         return st
-    return s
-
-administrar_chatbot('hola', 113234556, 2134123123, 'lb')

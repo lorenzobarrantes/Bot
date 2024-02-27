@@ -1,9 +1,6 @@
 
 # Whatsapp Bot con Python
 
-Impulsa tu negocio con un bot usando las apis oficiales de whatsapp.
-pueden ver el video paso a paso en el siguiente enlace: https://youtu.be/puYWiZDJnL0
-
 ## Descarga el proyecto
 
 
@@ -16,7 +13,7 @@ git clone ssh://git@emorell-dt.dnsalias.com:13024/mellon/chatbotwms.git
 - Enviar mensaje de texto
 - Enviar menus como botones o listas
 - Enviar stickers
-- Marcar los mensajes como "visto" (doble check azul)
+- Marcar los mensajes como "visto"
 - Reaccionar con emojis los mensajes del usuario
 - Enviar documentos pdf
 
@@ -35,18 +32,19 @@ Requiere pip y virtualenv
 pip install pip
 pip install virtualenv
 ```
-
+Crear carpeta .venv (si no esta en la clonacion)
 ```bash
   virtualenv .venv
 ```
 3. Activa el ambiente virtual
+
 Linux/Mac
 ```bash
   source .venv/bin/activate
 ```
 Windows
 ```commandline
-    .venv\Scripts\activate
+   .\.venv\Scripts\activate 
 ```
 4. Instala las dependencias
 

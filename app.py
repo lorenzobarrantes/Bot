@@ -5,9 +5,15 @@ import services
 app = Flask(__name__)
 
 
+@app.route('/', methods=['GET'])
+def master():
+    return 'Hola mundo 2'
+
+
 @app.route('/bienvenido', methods=['GET'])
 def bienvenido():
     return 'Hola mundo'
+
 
 @app.route('/webhook', methods=['GET'])
 def verificar_token():
@@ -35,9 +41,9 @@ def recibir_mensajes():
         messageId = message['id']
         contacts = value['contacts'][0]
         name = contacts['profile']['name']
-        text = services.obtener_Mensaje_whatsapp(message)
+        text = services.obtain_Msj_whatsapp(message)
 
-        services.administrar_chatbot(text, number, messageId, name)
+        services.admin_chatbot(text, number, messageId, name)
         return 'enviado'
 
     except Exception as e:
@@ -106,6 +112,6 @@ word-break: break-word !important;
     """
     return html_content
 
+
 if __name__ == '__main__':
     app.run()
-
