@@ -1,0 +1,12 @@
+
+2024-02-28 11:40:23 - Juan Grana: hola
+2024-02-28 11:40:28 - Botifleet: 🏡 Menu Principal.
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+E. Finalizar
+2024-02-28 12:14:37 - Juan Grana: hola
+2024-02-28 12:14:39 - Botifleet: No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendrá todo lo que necesita para resolverla, o si quiere puede volver al menu principal.

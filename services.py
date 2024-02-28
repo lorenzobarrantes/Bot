@@ -11,14 +11,8 @@ ultimo_tiempo = datetime.now()
 time_inactive = {}
 est_conv = {}
 msj_bot = ""
-menuIng = ("Ingresos\n"
-           "Seleccione la consulta que tiene\n"
-           "\n"
-           "A. Ingrese mal un remito\n"
-           "B. Concilie mal la mercaderia\n"
-           "C. Ubique mal la mercaderia\n"
-           "D. Menu Principal\n"
-           )
+menuIng = ingresos.menu_ing()
+saludos = ['hola', 'buenas', 'hol', 'hoola', 'holaa', 'buen dia', 'buen']
 
 
 def obtain_Msj_whatsapp(message):
@@ -254,18 +248,14 @@ def registerChat(number, name, text):
 
 
 def sendMenu(number, menu=("🏡 Menu Principal.\n"
-                           "Escribe la opción que estas buscando.\n"
+                           "\n"
+                           "Elija la opción que esta buscando.\n"
                            "\n"
                            "A. Consultas\n"
                            "B. Reporte de Error\n"
                            "C. Guía de Usuario\n"
-                           "D. Ideas/Sugerencias\n"
-    # "E. \n"
-    # "F. \n"
-    # "G. \n"
-    # "H. \n"
-    # "I. \n"
-    # "J. \n"
+                           "~D. Ideas/Sugerencias~\n"
+                           "E. Finalizar"
                            )):
     text = text_Message(number, menu)
     registerChat(number, 'Botifleet', menu)
@@ -288,27 +278,32 @@ def admin_chatbot(text, number, messageId, name):
     global est_conv
     global msj_bot
     global menuIng
+    global saludos
 
+    review_time(number)
     registerChat(number, name, text)
-
     text = text.lower()  # mensaje que envio el usuario
     lista = []
     print("mensaje del usuario: ", text)
-
     markRead = markRead_Message(messageId)
     lista.append(markRead)
     time.sleep(2)
-
     # Actualizar el tiempo y el mensaje más reciente
+
     ultimo_msj = text
+    if 'finalizar' in text or (est_conv[number] == 'en curso' and text == 'e'):
+        saludo = "Perfecto! No dudes en contactarnos si tienes más preguntas. ¡Hasta luego!"
+        est_conv[number] = 'inicio'
+        send(number, saludo)
+        return
 
-    review_time(number)
-
-    if est_conv[number] == 'inicio':
-        with open(f"chat_{number}.txt", "a", encoding="utf-8") as archivo:
-            archivo.write('\n')
-        archivo.close()
-        first_text = text_Message(number, f"¡Hola, {name.split()[0]}! 👋 Bienvenido a WMS Logifleet by Quadrant")
+    if est_conv[number] == 'inicio' or text in saludos:
+        replyReaction = replyReaction_Message(number, messageId, "👋")
+        send_Msj_whatsapp(replyReaction)
+        first_text = text_Message(number,
+                                  f"Buenas {name.split()[0]}. Le doy la bienvenida a WMS Logifleet by Quadrant\n"
+                                  f"Mi nombre es Botifleet.\n"
+                                  f"¿En que puedo asistirle hoy?")
         send_Msj_whatsapp(first_text)
         time.sleep(2)
 
@@ -321,8 +316,7 @@ def admin_chatbot(text, number, messageId, name):
         # msj_bot = body
         #
         # replyButtonData = buttonReply_Message(number, options, body, footer, "sed1", messageId)
-        # # replyReaction = replyReaction_Message(number, messageId, "🫡")
-        # # list.append(replyReaction)
+
         # lista.append(replyButtonData)
         est_conv[number] = 'en curso'
 
@@ -333,11 +327,11 @@ def admin_chatbot(text, number, messageId, name):
             options = ["Ingresos", "Egresos", "Inventario", "Maestro de Datos", "Atras"]
 
             listReplyData = listReply_Message(number, options, body, footer, "sed2", messageId)
-            # sticker = sticker_Message(number, get_media_id("perro_traje", "sticker"))
+            # sticker = sticker_Message(number, get_media_id("sticker1", "sticker"))
             msj_bot = body
             lista.append(listReplyData)
 
-        elif (text == 'b') or ("reportar error" in text):
+        elif (text == 'b') or ("error" in text):
             send(number, ("Gracias por reportar los errores. \n"
                           "En el siguiente documento encontraras una serie de pasos a seguir para el "
                           "reporte de errores, "
@@ -350,45 +344,35 @@ def admin_chatbot(text, number, messageId, name):
             msj_bot = 'Reporte errores'
             lista.append(replyButtonData)
 
-        elif "sí, envía el pdf" in text or text == 'c':
-            # sticker = sticker_Message(number, get_media_id("pelfet", "sticker"))
+        elif "pdf" in text or text == 'c':
             send(number, "Perfecto, por favor espera un momento.")
             msj_bot = 'Documento Guia Usuario.pdf'
             document = document_Message(number, sett.document_url, "Listo 👍🏻", "Guía de Usuario LogiFleet.pdf")
             send_Msj_whatsapp(document)
             replyButtonData = cont_conv(number, name, messageId)
-            msj_bot = 'Guia de usuario'
             lista.append(replyButtonData)
 
-        elif "ingresos" in text or 'menu ingresos' in text:
+        elif "ingresos" in text or 'menu ingresos' in text or 'ingreso' in text:
             est_conv[number] = 'consulta - ingreso'
 
             sendMenu(number, menuIng)
+        elif 'egresos' in text or 'inventario' in text or 'datos' in text:
+            send(number, 'Queda que me desarrollen esta area 🙄')
+            est_conv[number] = 'en curso'
+            sendMenu(number)
 
         elif "no, gracias" in text:
             replyButtonData = cont_conv(number, name, messageId)
             msj_bot = 'Continuar Conversacion?'
             lista.append(replyButtonData)
 
-        elif 'finalizar' in text:
-            textMessage = text_Message(number,
-                                       "Perfecto! No dudes en contactarnos si tienes más preguntas. ¡Hasta luego!")
-            lista.append(textMessage)
-            msj_bot = 'Conversacion Finalizada\n' \
-                      '********************************************'
-            est_conv[number] = 'inicio'
+
         elif "menu principal" in text or "atras" in text:
             est_conv[number] = 'en curso'
             sendMenu(number)
 
         else:
-            options = ["✅ Sí, envía el PDF.", "🏡 Menu Principal"]
-            body = "No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendra todo lo " \
-                   "que necesita para resolverla, o si quiere puede volver al menu principal "
-            footer = "Quadrant"
-            msj_bot = body
-            replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
-            lista.append(replyButtonData)
+            error_general(number, messageId)
 
     elif est_conv[number] == 'consulta - ingreso':
         resp, continua = ingresos.option_ing(text)
@@ -399,15 +383,18 @@ def admin_chatbot(text, number, messageId, name):
             est_conv[number] = 'en curso'
             sendMenu(number)
             continua = False
+        elif resp == 'error':
+            error_general(number, messageId)
         else:
-            send(number, resp)
+            for msj in resp:
+                send(number, msj)
 
         if continua:
             est_conv[number] = 'en curso'
             options = ["✅ Menu Ingresos", "🏡 Menu Principal"]
-            body = "Espero que esto haya resolvido su consulta\n" \
+            body = "Espero que esto haya resuelto su consulta\n" \
                    "por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta " \
-                   "conversacion, gracias. "
+                   "conversación, gracias. "
             footer = "Quadrant"
             msj_bot = body
             replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
@@ -424,12 +411,22 @@ def admin_chatbot(text, number, messageId, name):
         time_inactive[number] = ultimo_tiempo
 
 
+def error_general(number, messageId):
+    options = ["✅ Sí, envía el PDF.", "🏡 Menu Principal"]
+    body = "No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendrá todo lo " \
+           "que necesita para resolverla, o si quiere puede volver al menu principal.\n" \
+           "(Recuerde seleccionar las opciones como A, B, etc.) "
+    footer = "Quadrant"
+    registerChat(number, 'Botifleet', body)
+    replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
+    send_Msj_whatsapp(replyButtonData)
+
+
 def send(number, text):
     textMessage = text_Message(number, text)
-    if msj_bot != '':
-        registerChat(number, 'Botifleet', text)
+    registerChat(number, 'Botifleet', text)
     send_Msj_whatsapp(textMessage)
-    time.sleep(3)
+    time.sleep(2)
 
 
 def feedback():
@@ -443,6 +440,7 @@ def review_time(number):
 
     if number not in est_conv:
         est_conv[number] = 'inicio'
+        espaciado(number)
         return
 
     tiempo_actual = datetime.now()
@@ -450,6 +448,13 @@ def review_time(number):
     # Si el tiempo de inactividad es mayor a 60 minutos, reiniciar la conversación
     if inactive_real > timedelta(minutes=60):
         est_conv[number] = "inicio"
+        espaciado(number)
+
+
+def espaciado(number):
+    with open(f"chat_{number}.txt", "a", encoding="utf-8") as archivo:
+        archivo.write('\n')
+    archivo.close()
 
 
 # este codigo soluciona el agregado del 9 en Argentina

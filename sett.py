@@ -1,27 +1,22 @@
-token = 'quadrant'
+import os
+from dotenv import load_dotenv
 
-whatsapp_token = 'EAAFE50moTykBO1G8bjzXww6f8VYZBbdkPL9zZBuTZCyvD8ImH6kBvQvkaVVhwZCnrCSSiUNonnMsEZC4ysI69FKN0iH8QsL1NB3CfsH9hxfOZC2lvsNZCqfwnj90wXlKN95bUQEhv8Wbo0zB8BB61WhbZCbjzGZAxb4ZANH50YOy5mjvZBdqpp6B24B5lBoX0IT6PZAC'
+load_dotenv()
 
-whatsapp_url = 'https://graph.facebook.com/v18.0/262899716898229/messages'
+token = os.getenv("token")
 
-whatsapp_id_number = 262899716898229
+whatsapp_token = os.getenv("whatsapp_token")
 
-whatsapp_id = 259637087213484
+whatsapp_url = os.getenv("whatsapp_url")
+
+whatsapp_id_number = os.getenv("whatsapp_id_number")
+
+whatsapp_id = os.getenv("whatsapp_id")
+
+openai_id = os.getenv("openai_id")
 
 stickers = {
-    "poyo_feliz": 984778742532668,
-    "perro_traje": 1009219236749949,
-    "perro_triste": 982264672785815,
-    "pedro_pascal_love": 801721017874258,
-    "pelfet": 3127736384038169,
-    "anotado": 24039533498978939,
-    "gato_festejando": 1736736493414401,
-    "okis": 268811655677102,
-    "cachetada": 275511571531644,
-    "gato_juzgando": 107235069063072,
-    "chicorita": 3431648470417135,
-    "gato_triste": 210492141865964,
-    "gato_cansado": 1021308728970759
+    "sticker1": 1009219236749949,
 }
 
 document_url = "https://www.quadrant.com.ar/documentoimplementacionlogifleet.pdf"
