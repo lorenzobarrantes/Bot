@@ -7,7 +7,7 @@
 ```bash
 git clone ssh://git@emorell-dt.dnsalias.com:13024/mellon/chatbotwms.git
 ```
-    
+### Solicitar el archivo .env para el correcto funcionamiento
 ## Funcionalidades
 
 - Enviar mensaje de texto
