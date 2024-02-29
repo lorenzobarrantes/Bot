@@ -807,3 +807,138 @@ E. Finalizar
 2024-02-28 17:10:37 - Botifleet: Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?
 2024-02-28 17:11:10 - Lorenzo Barrantes: Egresos
 2024-02-28 17:11:12 - Botifleet: No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendrá todo lo que necesita para resolverla, o si quiere puede volver al menu principal. (Recuerde seleccionar las opciones como A, B, etc.) 
+
+2024-02-29 12:32:00 - Lorenzo Barrantes: das
+2024-02-29 12:32:05 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 12:32:07 - Lorenzo Barrantes: d
+2024-02-29 12:32:09 - Botifleet: ¡Hola! En esta sección, puedes compartir tus ideas y sugerencias para mejorar el WMS o para mí. Por favor, escríbelas a continuación para que podamos trabajar en ellas juntos. 
+2024-02-29 12:32:16 - Lorenzo Barrantes: asdfasf
+2024-02-29 12:32:21 - Botifleet: Gracias por darnos la sugerencia, la estaremos revisando en cuanto 
+2024-02-29 12:34:02 - Lorenzo Barrantes: a
+2024-02-29 12:34:04 - Botifleet: Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?
+2024-02-29 12:34:12 - Lorenzo Barrantes: ⏪ Atras
+2024-02-29 12:34:14 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 12:34:19 - Lorenzo Barrantes: d
+2024-02-29 12:34:21 - Botifleet: ¡Hola! En esta sección, puedes compartir tus ideas y sugerencias para mejorar el WMS o para mí. Por favor, escríbelas a continuación para que podamos trabajar en ellas juntos. 
+
+2024-02-29 12:34:23 - Lorenzo Barrantes: d
+2024-02-29 12:34:28 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 12:34:32 - Lorenzo Barrantes: d
+2024-02-29 12:34:34 - Botifleet: ¡Hola! En esta sección, puedes compartir tus ideas y sugerencias para mejorar el WMS o para mí. Por favor, escríbelas a continuación para que podamos trabajar en ellas juntos. 
+2024-02-29 12:34:39 - Lorenzo Barrantes: asdfasdd
+2024-02-29 12:34:44 - Botifleet: Gracias por darnos la sugerencia, la estaremos revisando en cuanto 
+2024-02-29 12:35:51 - Lorenzo Barrantes: ✅ Menu Principal
+2024-02-29 12:35:53 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 12:35:58 - Lorenzo Barrantes: d
+2024-02-29 12:36:00 - Botifleet: ¡Hola! En esta sección, puedes compartir tus ideas y sugerencias para mejorar el WMS o para mí. Por favor, escríbelas a continuación para que podamos trabajar en ellas juntos. 
+
+2024-02-29 12:42:37 - Lorenzo Barrantes: sd
+2024-02-29 12:42:42 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 12:42:46 - Lorenzo Barrantes: d
+2024-02-29 12:42:48 - Botifleet: ¡Hola! En esta sección, puedes compartir tus ideas y sugerencias para mejorar el WMS o para mí. Por favor, escríbelas a continuación para que podamos trabajar en ellas juntos. 
+2024-02-29 12:42:54 - Lorenzo Barrantes: hola me gustaria
+2024-02-29 12:42:57 - Lorenzo Barrantes: esto
+2024-02-29 12:42:59 - Lorenzo Barrantes: aquello
+2024-02-29 12:43:02 - Lorenzo Barrantes: y eso mismo
+2024-02-29 12:43:06 - Lorenzo Barrantes: y lo demas por alla
+2024-02-29 12:43:13 - Lorenzo Barrantes: listo
+2024-02-29 12:43:17 - Botifleet: Gracias por darnos la sugerencia, la estaremos revisando en cuanto 
+
+2024-02-29 14:45:51 - Lorenzo Barrantes: ✅ Menu Principal
+2024-02-29 14:45:56 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 14:46:35 - Lorenzo Barrantes: a
+2024-02-29 14:46:37 - Botifleet: Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?
+2024-02-29 14:46:43 - Lorenzo Barrantes: ingresos
+2024-02-29 14:46:45 - Botifleet: ↘ Ingresos
+
+Seleccione la consulta
+
+A. Ingrese mal un remito
+B. Concilie mal la mercadería
+C. Ubique mal la mercadería
+D. Menu Principal
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-02-29 14:46:52 - Lorenzo Barrantes: z
+2024-02-29 14:46:54 - Botifleet: No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendrá todo lo que necesita para resolverla, o si quiere puede volver al menu principal.
+Tiene la opción de volver a intentar seleccionar una opción. (Recuerde seleccionarla como A, B, etc.)
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-02-29 14:46:57 - Lorenzo Barrantes: 🏡 Menu Principal
+2024-02-29 14:46:59 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar
+2024-02-29 14:47:04 - Lorenzo Barrantes: ✅ Sí, envía el PDF.
+2024-02-29 14:47:06 - Botifleet: Perfecto, por favor espera un momento.
+2024-02-29 14:47:14 - Botifleet: Documento Guia Usuario.pdf
+2024-02-29 14:59:36 - Lorenzo Barrantes: ✅ Menu Principal
+2024-02-29 14:59:38 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+~D. Ideas/Sugerencias~
+E. 
+F. Finalizar

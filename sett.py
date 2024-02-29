@@ -15,9 +15,11 @@ whatsapp_id = os.getenv("whatsapp_id")
 
 openai_id = os.getenv("openai_id")
 
+mail_pass = os.getenv("mail_pass")
+
 stickers = {
     "sticker1": 1009219236749949,
 }
 
 document_url = "https://www.quadrant.com.ar/documentoimplementacionlogifleet.pdf"
-error_url = "https://www.quadrant.com.ar/reporteerroreslogifleet.pdf"
+error_url = "https://www.quadrant.coom.ar/reporteerroreslogifleet.pdf"

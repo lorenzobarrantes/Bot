@@ -1,10 +1,12 @@
 import requests
-
 import ingresos
 import sett
 import json
 import time
 from datetime import datetime, timedelta
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 ultimo_msj = ""
 ultimo_tiempo = datetime.now()
@@ -13,7 +15,7 @@ est_conv = {}
 msj_bot = ""
 menuIng = ingresos.menu_ing()
 saludos = ['hola', 'buenas', 'hol', 'hoola', 'holaa', 'buen dia', 'buen']
-
+sugerencia = []
 
 def obtain_Msj_whatsapp(message):
     if 'type' not in message:
@@ -255,7 +257,8 @@ def sendMenu(number, menu=("🏡 Menu Principal.\n"
                            "B. Reporte de Error\n"
                            "C. Guía de Usuario\n"
                            "~D. Ideas/Sugerencias~\n"
-                           "E. Finalizar"
+                           "E. \n"
+                           "F. Finalizar"
                            )):
     text = text_Message(number, menu)
     registerChat(number, 'Botifleet', menu)
@@ -279,7 +282,7 @@ def admin_chatbot(text, number, messageId, name):
     global msj_bot
     global menuIng
     global saludos
-
+    global sugerencia
     review_time(number)
     registerChat(number, name, text)
     text = text.lower()  # mensaje que envio el usuario
@@ -289,9 +292,8 @@ def admin_chatbot(text, number, messageId, name):
     lista.append(markRead)
     time.sleep(2)
     # Actualizar el tiempo y el mensaje más reciente
-
     ultimo_msj = text
-    if 'finalizar' in text or (est_conv[number] == 'en curso' and text == 'e'):
+    if 'finalizar' in text or (est_conv[number] == 'en curso' and text == 'f'):
         saludo = "Perfecto! No dudes en contactarnos si tienes más preguntas. ¡Hasta luego!"
         est_conv[number] = 'inicio'
         send(number, saludo)
@@ -324,7 +326,7 @@ def admin_chatbot(text, number, messageId, name):
         if "consultas" in text or text == 'a':
             body = "Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?"
             footer = "Quadrant"
-            options = ["Ingresos", "Egresos", "Inventario", "Maestro de Datos", "Atras"]
+            options = ["↘️ Ingresos", "↖️ Egresos", "📦 Inventario", "🗃️ Maestro de Datos", "⏪ Atras"]
 
             listReplyData = listReply_Message(number, options, body, footer, "sed2", messageId)
             # sticker = sticker_Message(number, get_media_id("sticker1", "sticker"))
@@ -371,6 +373,12 @@ def admin_chatbot(text, number, messageId, name):
             est_conv[number] = 'en curso'
             sendMenu(number)
 
+        elif 'idea' in text or text == 'd' or text == 'sugerencia':
+            mensaje = '¡Hola! En esta sección, puedes compartir tus ideas y sugerencias para mejorar el WMS o para ' \
+                      'mí. Por favor, escríbelas a continuación para que podamos trabajar en ellas juntos. '
+            est_conv[number] = 'sugerencia'
+            send(number, mensaje)
+
         else:
             error_general(number, messageId)
 
@@ -383,6 +391,9 @@ def admin_chatbot(text, number, messageId, name):
             est_conv[number] = 'en curso'
             sendMenu(number)
             continua = False
+        elif resp == 'pdf':
+            est_conv[number] = 'en curso'
+            admin_chatbot('pdf', number, messageId, name)
         elif resp == 'error':
             error_general(number, messageId)
         else:
@@ -400,6 +411,51 @@ def admin_chatbot(text, number, messageId, name):
             replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
             lista.append(replyButtonData)
 
+    elif est_conv[number] == 'sugerencia':
+        if 'listo' in text or 'terminar' in text:
+
+            texto_sugerencia = "\n".join(sugerencia)
+            send("541136383382", f"Nuevo mensaje de: {name}\n"
+                                 f"Numero de telefono: {number}\n"
+                                 f"Sugerencia:\n"
+                                 f"{texto_sugerencia}")
+            send(number, 'Gracias por darnos la sugerencia, la estaremos revisando en cuanto ')
+            est_conv[number] = 'en curso'
+            replyButtonData = cont_conv(number, name, messageId)
+            lista.append(replyButtonData)
+            sugerencia = []
+        # try:
+        #     # Configurar los parámetros del servidor SMTP
+        #     smtp_server = 'smtp.titan.email'
+        #     smtp_port = 465
+        #     smtp_username = 'web@mellon.com.ar'
+        #     smtp_email = 'web@mellon.com.ar'
+        #     smtp_password = sett.mail_pass
+        #     # Configurar el mensaje
+        #     msg = MIMEMultipart()
+        #     msg['From'] = 'web@mellon.com.ar'
+        #     msg['To'] = 'lorenzob@mellon.com.ar'
+        #     msg['Subject'] = f"{name} - Sugerencia - Botifleet"
+        #     # Cuerpo del mensaje
+        #     mensaje = f"Se ha enviado un mensaje de: {name} con el numero de telefono: {number}.\n" \
+        #               f"{text}\n" \
+        #               f""
+        #     msg.attach(MIMEText(mensaje, 'plain'))
+        # except Exception as e:
+        #     return e, 'attach'
+        # try:
+        #     # Crear conexión segura al servidor SMTP
+        #     server = smtplib.SMTP(smtp_server, smtp_port)
+        #     server.starttls()
+        #     server.login(smtp_email, smtp_password, smtp_username)
+        #     # Enviar correo electrónico
+        #     server.send_message(msg)
+        #     # Cerrar conexión con el servidor
+        #     server.quit()
+        # except Exception as e:
+        #     return e, 'server'
+        sugerencia.append(text)
+
     if msj_bot != '':
         registerChat(number, 'Botifleet', msj_bot)
         msj_bot = ''
@@ -415,7 +471,9 @@ def error_general(number, messageId):
     options = ["✅ Sí, envía el PDF.", "🏡 Menu Principal"]
     body = "No tenemos contemplada su consulta, le podemos ofrecer la guia de usuario la cual tendrá todo lo " \
            "que necesita para resolverla, o si quiere puede volver al menu principal.\n" \
-           "(Recuerde seleccionar las opciones como A, B, etc.) "
+           "Tiene la opción de volver a intentar seleccionar una opción. " \
+           "(Recuerde seleccionarla como A, B, etc.)\n" \
+           'Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.'
     footer = "Quadrant"
     registerChat(number, 'Botifleet', body)
     replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
@@ -449,6 +507,7 @@ def review_time(number):
     if inactive_real > timedelta(minutes=60):
         est_conv[number] = "inicio"
         espaciado(number)
+    print(est_conv[number])
 
 
 def espaciado(number):

@@ -3,6 +3,12 @@ conti = False
 lista = []
 
 
+def finalizar(lis):
+    global item
+    item = ''
+    return lis, True
+
+
 def menu_ing():
     global item
     item = ''
@@ -25,7 +31,7 @@ def option_ubicar(text):
 
     if item == 'ubicar':
         if text == 'a' or 'completa' in text:
-            exp = 'Es crucial enfatizar que *NUNCA* debe confirmar una Orden de Traslado sin haberla ejecutado ' \
+            exp = '‼ Es crucial enfatizar que *NUNCA* debe confirmar una Orden de Traslado sin haberla ejecutado ' \
                   'efectivamente. Esta acción podría provocar problemas operativos graves en su almacén. Recomendamos ' \
                   'encarecidamente que verifique la ejecución de la orden antes de confirmarla. '
             lista.append(exp)
@@ -34,26 +40,25 @@ def option_ubicar(text):
                   "donde encontrará el paso a paso del proceso que debe seguir."
 
             lista.append(exp)
-            item = ''
-            return lista, True
+            return finalizar(lista)
         elif text == 'b' or 'pendiente' in text:
             exp = 'Para este caso, editar una orden requiere que identifique cuántos palets se van a editar, ' \
-                  'ya que existen dos formas de hacerlo. '
+                  'ya que existen dos formas de hacerlo:'
             lista.append(exp)
-            exp = 'Si son pocos palets, diríjase al botón "Ver Orden" 👁️, donde encontrará el listado de palets a ' \
-                  'ubicar junto con un ícono de reemplazo. Al hacer clic en él, podrá seleccionar la nueva ubicación ' \
-                  'para el palet. '
+            exp = '1️⃣ Si son pocos palets, diríjase al botón "Ver Orden" 👁️, donde encontrará el listado de palets a ' \
+                  'ubicar junto con un ícono de reemplazo 🔁. Al hacer clic en él, podrá seleccionar la nueva ' \
+                  'ubicación para el palet. '
             lista.append(exp)
-            exp = 'Si es una cantidad considerable de palets, le recomiendo dirigirse a "Editar Orden" ✏️, donde verá ' \
+            exp = '2️⃣ Si es una cantidad considerable de palets, le recomiendo dirigirse a "Editar Orden" ✏, donde verá ' \
                   'un listado de la mercadería seleccionada para el traslado. Puede ubicar esa mercadería dentro de ' \
                   '"Resultados de Búsqueda" para mover cierta cantidad de palets y dejar los demás en staging, ' \
-                  'o editar todos. Luego, haga clic en "Siguiente" para ir a la pantalla donde seleccionará realmente ' \
+                  'o mover todos. Luego, haga clic en "Siguiente" para ir a la pantalla donde seleccionará realmente ' \
                   'dónde ubicar los palets de su Orden de Traslado. '
             lista.append(exp)
-            exp = 'Independientemente de los pasos que haya seguido, una vez aceptado, la orden estará editada.'
+            exp = 'Independientemente de los pasos que haya seguido, una vez aceptado, la orden estará editada y ' \
+                  'lista para ser ubicada en el almacen '
             lista.append(exp)
-            item = ''
-            return lista, True
+            return finalizar(lista)
         elif text == 'c' or 'no la encuentro' in text:
             exp = 'Por favor, dentro de "Órdenes de Traslado", revise el filtro. Asegúrese de que esté configurado en ' \
                   '"Pendiente". Si la orden no se encuentra allí, cámbielo a "Completa" y verifique nuevamente.'
@@ -75,6 +80,9 @@ def option_ubicar(text):
                      'D. Atrás')
             lista.append(texto)
             return lista, False
+        elif text == 'd' or 'atras' in text:
+            item = ''
+            return 'menu ingresos', False
         else:
             return 'error', False
 
@@ -117,7 +125,7 @@ def option_remito(text):
                   'Recuerde anular tambien el ingreso del incorrecto desde *Operaciones > Arribos y partidas > ' \
                   'Dashboard arribos y partidas*, buscar el ingreso incorrecto y anularlo '
             lista.append(exp)
-            return lista, True
+            return finalizar(lista)
         elif text == 'd' or 'menu' in text or "atras" in text:
             item = ''
             return 'menu ingresos', False
@@ -138,8 +146,7 @@ def option_remito(text):
                   'formulario para reportar errores. Este reporte entra en la categoría: *Importante* y sera atendido ' \
                   'cuanto antes. Muchas gracias. '
             lista.append(exp)
-            item = ''
-            return lista, True
+            return finalizar(lista)
         elif text == 'd' or 'mercaderia' in text:
             exp = 'Actualmente, no contamos con la capacidad para modificar la cantidad de mercancía cargada en un ' \
                   'remito Confirmado. '
@@ -158,8 +165,7 @@ def option_remito(text):
                   'podrá agregar la mercancía faltante. Para luego confirmar la segunda Orden de Traslado y completar ' \
                   'el proceso de ingreso. '
             lista.append(exp)
-            item = ''
-            return lista, True
+            return finalizar(lista)
         elif text == 'e' or 'atras' in text:
             item = ''
             return option_ing('a')
@@ -172,6 +178,13 @@ def option_ing(text):
     global item
     global lista
     lista = []
+    print(item)
+    if "menu principal" in text or 'pdf' in text:
+        item = ''
+        if 'menu principal' in text:
+            return 'menu principal', False
+        else:
+            return 'pdf', False
     if item == '':
 
         if text == 'a' or "ingrese mal un remito" in text:
@@ -209,8 +222,7 @@ def option_ing(text):
             exp = 'Si confirmo la orden con mercadería faltante, realice un ingreso adicional con un número de remito ' \
                   'diferenciado agregando "-1". A partir de ahí, podrá agregar la mercancía faltante.'
             lista.append(exp)
-            item = ''
-            return lista, True
+            return finalizar(lista)
 
         elif text == 'c' or 'ubique mal la mercaderia' in text:
             item = 'ubicar'
