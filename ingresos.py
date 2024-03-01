@@ -178,7 +178,6 @@ def option_ing(text):
     global item
     global lista
     lista = []
-    print(item)
     if "menu principal" in text or 'pdf' in text:
         item = ''
         if 'menu principal' in text:

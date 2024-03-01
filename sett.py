@@ -18,7 +18,10 @@ openai_id = os.getenv("openai_id")
 mail_pass = os.getenv("mail_pass")
 
 stickers = {
-    "sticker1": 1009219236749949,
+    "sticker_1": "https://www.quadrant.com.ar/sticker.webp",
+    "sticker_2": "https://www.quadrant.com.ar/sticker.webp",
+    "sticker_3": "https://www.quadrant.com.ar/sticker.webp",
+    "sticker_4": "https://www.quadrant.com.ar/sticker.webp",
 }
 
 document_url = "https://www.quadrant.com.ar/documentoimplementacionlogifleet.pdf"
