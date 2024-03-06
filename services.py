@@ -1,8 +1,12 @@
 import random
 
 import requests
+
+import egresos
+import implementacion
 import ingresos
 import inventario
+import mobile
 import sett
 import json
 import time
@@ -174,6 +178,22 @@ def document_Message(number, url, caption, filename):
     return data
 
 
+def image_Message(number, url, caption):
+    data = json.dumps(
+        {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "image",
+            "image": {
+                "link": url,
+                "caption": caption
+            }
+        }
+    )
+    return data
+
+
 def sticker_Message(number, sticker_id):
     data = json.dumps(
         {
@@ -267,8 +287,11 @@ def sendMenu(number, menu=("🏡 Menu Principal.\n"
                            "B. Reporte de Error\n"
                            "C. Guía de Usuario\n"
                            "D. Ideas/Sugerencias\n"
-                           "E. \n"
-                           "F. Finalizar"
+                           "E. Primeros Pasos Implementación\n"
+                           "F. Mobile\n"
+                           "\n"
+                           'Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para '
+                           'terminarla.'
                            )):
     text = text_Message(number, menu)
     registerChat(number, 'Botifleet', menu)
@@ -293,22 +316,23 @@ def admin_chatbot(text, number, messageId, name):
     global menuIng
     global saludos
     global sugerencia
+
+    markRead = markRead_Message(messageId)
+    send_Msj_whatsapp(markRead)
     review_time(number)
-    registerChat(number, name, text)
     text = text.lower()  # mensaje que envio el usuario
     lista = []
     print("mensaje del usuario: ", text)
-    markRead = markRead_Message(messageId)
-    send_Msj_whatsapp(markRead)
     time.sleep(0.5)
     # Actualizar el tiempo y el mensaje más reciente
+    registerChat(number, name, text)
     ultimo_msj = text
     ultimo_tiempo = datetime.now()
     time_inactive[number] = ultimo_tiempo
     if text == '':
         return
 
-    if ('finalizar' in text and not est_conv[number] == 'sugerencia') or (est_conv[number] == 'en curso' and text == 'f'):
+    if 'finalizar' in text and not est_conv[number] == 'sugerencia':
         saludo = "Perfecto! No dudes en contactarnos si tienes más preguntas. ¡Hasta luego!"
         est_conv[number] = 'inicio'
         send(number, saludo)
@@ -319,7 +343,9 @@ def admin_chatbot(text, number, messageId, name):
         send_Msj_whatsapp(replyReaction)
         first_text = text_Message(number,
                                   f"Buenas {name.split()[0]}. Le doy la bienvenida a WMS Logifleet by Quadrant\n"
-                                  f"Mi nombre es Botifleet.\n"
+                                  f"\n"
+                                  f"🤖 Mi nombre es Botifleet.\n"
+                                  f"\n"
                                   f"¿En que puedo asistirle hoy?")
         send_Msj_whatsapp(first_text)
         time.sleep(1)
@@ -327,9 +353,10 @@ def admin_chatbot(text, number, messageId, name):
         est_conv[number] = 'en curso'
         return
 
-    if text != 'sticker':
+    if text != 'sticker' and est_conv[number] != 'sugerencia':
 
         if est_conv[number] == 'en curso':
+
             if "consultas" in text or text == 'a':
                 body = "Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?"
                 footer = "Quadrant"
@@ -339,6 +366,7 @@ def admin_chatbot(text, number, messageId, name):
                 # sticker = sticker_Message(number, get_media_id("sticker1", "sticker"))
                 msj_bot = body
                 lista.append(listReplyData)
+                est_conv[number] = 'consulta'
 
             elif (text == 'b') or ("error" in text):
                 send(number, ("Gracias por reportar los errores. \n"
@@ -353,7 +381,7 @@ def admin_chatbot(text, number, messageId, name):
                 msj_bot = 'Reporte errores'
                 lista.append(replyButtonData)
 
-            elif "pdf" in text or text == 'c':
+            elif "guia" in text or text == 'c':
                 send(number, "Perfecto, por favor espera un momento.")
                 msj_bot = 'Documento Guia Usuario.pdf'
                 document = document_Message(number, sett.document_url, "Listo 👍🏻", "Guía de Usuario LogiFleet.pdf")
@@ -361,30 +389,7 @@ def admin_chatbot(text, number, messageId, name):
                 replyButtonData = cont_conv(number, name, messageId)
                 lista.append(replyButtonData)
 
-            elif "ingresos" in text or 'menu ingresos' in text or 'ingreso' in text:
-                est_conv[number] = 'consulta - ingreso'
-
-                sendMenu(number, menuIng)
-            elif 'egresos' in text or 'datos' in text:
-                send(number, 'Queda que me desarrollen esta area 🙄')
-                est_conv[number] = 'en curso'
-                sendMenu(number)
-
-            elif 'inventario' in text:
-                est_conv[number] = 'consulta - inventario'
-                sendMenu(number, inventario.menu_inv())
-
-            elif "no, gracias" in text:
-                replyButtonData = cont_conv(number, name, messageId)
-                msj_bot = 'Continuar Conversacion?'
-                lista.append(replyButtonData)
-
-
-            elif "menu principal" in text or "atras" in text:
-                est_conv[number] = 'en curso'
-                sendMenu(number)
-
-            elif 'idea' in text or text == 'd' or text == 'sugerencia':
+            elif 'idea' in text or text == 'd' or 'sugerencia' in text:
                 mensaje = "¡Hola! Bienvenido a esta sección dedicada a tus ideas y sugerencias para mejorar nuestro WMS o " \
                           "mi funcionamiento. Por favor, comparte tus ideas a continuación para que podamos colaborar en " \
                           "su implementación juntos. \n Cuando hayas terminado, escribe 'Listo' para finalizar tu " \
@@ -392,11 +397,56 @@ def admin_chatbot(text, number, messageId, name):
                 est_conv[number] = 'sugerencia'
                 send(number, mensaje)
 
+            elif 'implementacion' in text or text == 'e':
+                est_conv[number] = 'implementacion'
+                sendMenu(number, implementacion.menu_imp())
 
+            elif 'mobile' in text or text == 'f':
+                send(number, "En este momento, no contamos con suficientes datos para procesar consultas relacionadas "
+                             "con móviles. Si tiene alguna pregunta, por favor envíela después de este mensaje y "
+                             "escribe 'Listo' cuando haya terminado. ¡Gracias por su paciencia y comprensión!")
+                est_conv[number] = 'sugerencia'
+                return
+                # est_conv[number] = 'mobile'
+                # sendMenu(number, mobile.menu_mob())
+
+            elif "no, gracias" in text:
+                replyButtonData = cont_conv(number, name, messageId)
+                msj_bot = 'Continuar Conversacion?'
+                lista.append(replyButtonData)
+
+            elif "menu principal" in text or "atras" in text:
+                est_conv[number] = 'en curso'
+                sendMenu(number)
 
             else:
                 error_general(number, messageId)
+        ############################################################################################
+        elif est_conv[number] == 'consulta':
+            if "ingresos" in text or 'menu ingresos' in text or 'ingreso' in text:
+                est_conv[number] = 'consulta - ingreso'
+                sendMenu(number, menuIng)
 
+            elif 'egresos' in text:
+                est_conv[number] = 'consulta - egreso'
+                send(number, egresos.menu_egr())
+
+            elif 'inventario' in text:
+                est_conv[number] = 'consulta - inventario'
+                sendMenu(number, inventario.menu_inv())
+
+            elif 'datos' in text:
+                send(number, 'Queda que me desarrollen esta area 🙄')
+                est_conv[number] = 'en curso'
+                sendMenu(number)
+
+            elif 'atras' in text:
+                est_conv[number] = 'en curso'
+                sendMenu(number)
+
+            else:
+                error_general(number, messageId)
+        ############################################################################################
         elif est_conv[number] == 'consulta - ingreso':
             resp, continua = ingresos.option_ing(text)
             if resp == 'menu ingresos':
@@ -413,27 +463,99 @@ def admin_chatbot(text, number, messageId, name):
                 error_general(number, messageId)
             else:
                 for msj in resp:
-                    send(number, msj)
+                    if 'img_' in msj:
+                        img = image_Message(number, f"https://www.quadrant.com.ar/bot/ingresos/{msj}", '👆')
+                        send_Msj_whatsapp(img)
+                        time.sleep(1)
+                    else:
+                        send(number, msj)
 
             if continua:
                 replyButtonData = continua_conv(number, messageId, "✅ Menu Ingresos")
                 lista.append(replyButtonData)
+        ############################################################################################
 
         elif est_conv[number] == 'consulta - egreso':
-            pass
+            resp, continua = egresos.opt_egr(text)
+            if resp == 'menu egresos':
+                sendMenu(number, egresos.menu_egr())
+                continua = False
+            elif resp == 'menu principal':
+                est_conv[number] = 'en curso'
+                sendMenu(number)
+                continua = False
+            elif resp == 'pdf':
+                est_conv[number] = 'en curso'
+                admin_chatbot('pdf', number, messageId, name)
+            elif resp == 'error':
+                error_general(number, messageId)
+            else:
+                for msj in resp:
+                    if 'img_' in msj:
+                        img = image_Message(number, f"https://www.quadrant.com.ar/bot/egresos/{msj}", '👆')
+                        send_Msj_whatsapp(img)
+                        time.sleep(1)
+                    else:
+                        send(number, msj)
+
+            if continua:
+                replyButtonData = continua_conv(number, messageId, "✅ Menu Egresos")
+                lista.append(replyButtonData)
+        ############################################################################################
+
         elif est_conv[number] == 'consulta - inventario':
             resp, continua = inventario.option_inv(text)
             if 'menu inventario' in resp:
                 send(number, inventario.menu_inv())
             else:
                 for msj in resp:
-                    send(number, msj)
+                    if 'img_' in msj:
+                        img = image_Message(number, f"https://www.quadrant.com.ar/bot/inventario/{msj}", '👆')
+                        send_Msj_whatsapp(img)
+                        time.sleep(1)
+                    else:
+                        send(number, msj)
             if continua:
                 replyButtonData = continua_conv(number, messageId, "✅ Menu Inventario")
                 lista.append(replyButtonData)
+        ############################################################################################
+        elif est_conv[number] == 'consulta - datos':
+            pass
+        ############################################################################################
 
+        elif est_conv[number] == 'implementacion':
+            pass
+        ############################################################################################
 
-    elif est_conv[number] == 'sugerencia':
+        elif est_conv[number] == 'mobile':
+            pass
+            # resp, continua = mobile.option_mob(text)
+            # if resp == 'menu mobile':
+            #     sendMenu(number, mobile.menu_mob())
+            #     continua = False
+            # elif resp == 'menu principal':
+            #     est_conv[number] = 'en curso'
+            #     sendMenu(number)
+            #     continua = False
+            # elif resp == 'pdf':
+            #     send(number, "Perfecto, por favor espera un momento.")
+            #     msj_bot = 'Documento Guia Usuario App.pdf'
+            #     document = document_Message(number, sett.mobile_url, "Listo 👍🏻", "Guía de Usuario LogiFleet App.pdf")
+            #     send_Msj_whatsapp(document)
+            #     replyButtonData = cont_conv(number, name, messageId)
+            #     lista.append(replyButtonData)
+            # elif resp == 'error':
+            #     error_general(number, messageId)
+            # else:
+            #     for msj in resp:
+            #         send(number, msj)
+            #
+            # if continua:
+            #     replyButtonData = continua_conv(number, messageId, "✅ Menu Mobile")
+            #     lista.append(replyButtonData)
+        ############################################################################################
+
+    if est_conv[number] == 'sugerencia':
         if 'listo' in text or 'terminar' in text or 'finalizar' in text:
             texto_sugerencia = "\n".join(sugerencia)
             send("541136383382", f"Nuevo mensaje de: {name}\n"
@@ -536,3 +658,8 @@ def replace_start(s):
     else:
         return st
 
+# admin_chatbot('hola', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('f', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('suge1', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('suge2', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('listo', '541150375327', random.randint(0,1000), 'lorenzo')

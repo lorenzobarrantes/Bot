@@ -16,10 +16,11 @@ def menu_ing():
             "\n"
             "Seleccione la consulta\n"
             "\n"
-            "A. Ingrese mal un remito\n"
-            "B. Concilie mal la mercadería\n"
-            "C. Ubique mal la mercadería\n"
-            "D. Menu Principal\n"
+            "A. Se ingresó mal un remito\n"
+            "B. Se concilió mal la mercadería\n"
+            "C. Ubicación incorrecta de la mercadería\n"
+            "D. Crear Orden de Traslado\n"
+            "E. Menu Principal\n"
             "\n"
             'Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.'
             )
@@ -55,8 +56,12 @@ def option_ubicar(text):
                   'o mover todos. Luego, haga clic en "Siguiente" para ir a la pantalla donde seleccionará realmente ' \
                   'dónde ubicar los palets de su Orden de Traslado. '
             lista.append(exp)
+            exp = "3️⃣ Como última opción, puedes anular la Orden de Traslado y luego crear una nueva. Selecciona " \
+                  "'Nueva' y luego, en la pestaña que se abre, elige 'Orden de Ingreso'. Busca tu ingreso y vuelve a " \
+                  "ubicar la mercancía en el almacén. "
+            lista.append(exp)
             exp = 'Independientemente de los pasos que haya seguido, una vez aceptado, la orden estará editada y ' \
-                  'lista para ser ubicada en el almacen '
+                  'lista para ser ubicada en el almacén '
             lista.append(exp)
             return finalizar(lista)
         elif text == 'c' or 'no la encuentro' in text:
@@ -152,7 +157,7 @@ def option_remito(text):
                   'remito Confirmado. '
             lista.append(exp)
             exp = 'Sin embargo, si ha cargado *más mercancía de la indicada en el remito*, \n' \
-                  'Ubique correctamente y confirme la orden de traslado en el almacen y ' \
+                  'Ubique correctamente y confirme la orden de traslado en el almacén y ' \
                   'le recomiendo que visite el ' \
                   'almacén y realice una baja manual de la cantidad excedente. '
             lista.append(exp)
@@ -160,7 +165,7 @@ def option_remito(text):
                   'Inventario > Alta y Baja manual. '
             lista.append(exp)
             exp = 'Si, por el contrario, ha ingresado menos mercancía de la indicada en el remito, le sugiero que ' \
-                  'confirme la orden de traslado al almacen y ' \
+                  'confirme la orden de traslado al almacén y ' \
                   'realice un ingreso adicional con un número de remito diferenciado agregando "-1". A partir de ahí, ' \
                   'podrá agregar la mercancía faltante. Para luego confirmar la segunda Orden de Traslado y completar ' \
                   'el proceso de ingreso. '
@@ -214,7 +219,7 @@ def option_ing(text):
                   "detenidamente ambos números (remito y conciliación) para asegurarse de que coincidan correctamente. "
             lista.append(exp)
             exp = "*En el caso de que la orden de ingreso este completa.*\n" \
-                  "Para corregir la mercadería debera dar de baja manual la mercadería excedente desde el almacen\n" \
+                  "Para corregir la mercadería debera dar de baja manual la mercadería excedente desde el almacén\n" \
                   "Para aprender cómo realizar una baja manual, puede dirigirse a mi Menú Principal > Consultas >" \
                   "Inventario > Alta y Baja manual."
             lista.append(exp)
@@ -236,7 +241,49 @@ def option_ing(text):
                      'D. Atrás')
             lista.append(texto)
             return lista, conti
-        elif text == 'd' or 'atras' in text or 'menu principal' in text or "atrás" in text:
+
+        elif text == 'd' or 'orden traslado' in text:
+            item = 'ot'
+            exp = "Para crear una Orden de Traslado, la Orden de Ingreso debe estar en estado 'Completa'. Esto " \
+                  "significa que la orden ha sido conciliada y su descarga aceptada. En el almacén, la mercancía " \
+                  "estaría en la zona de staging, ya verificada (etiquetada y con la planilla de control de ingreso " \
+                  "completada) y lista para ser ubicada. \n" \
+                  "*Aquí tienes dos formas de asignar la ubicación, ya sea de manera manual o automática.*"
+            lista.append(exp)
+            exp = "Para realizarlo de forma *automática*, sigue estos pasos: \n" \
+                  "1. Desde la sección de 'Órdenes de ingreso', haz clic en la opción 'Ubicar automáticamente " \
+                  "mercadería'. \n" \
+                  "2. Al hacer clic en esta opción, aparecerá la siguiente ventana, donde seleccionando la Nave y " \
+                  "aceptando, la orden sera creada. "
+            lista.append(exp)
+            img = 'img_0.png'
+            lista.append(img)
+            exp = "Para realizarlo de manera *manual*, sigue estos pasos:\n" \
+                  "1. Ve a la sección de 'Órdenes de traslado' y haz clic en 'Nuevo'. Se abrirá el siguiente menú, " \
+                  "donde deberás seleccionar 'Orden de ingreso', como se indica en la figura:\n "
+            lista.append(exp)
+            img = 'img_1.png'
+            lista.append(img)
+            exp = "2. Una vez dentro de 'Órdenes de ingreso', haz clic en 'Buscar' y selecciona la orden deseada (" \
+                  "busca el número de orden con el que estabas trabajando). Luego, selecciona la orden y haz clic en " \
+                  "'Aceptar'.\n" \
+                  "Una vez aceptado le aparecerán los resultados de la búsqueda de la siguiente manera:"
+            lista.append(exp)
+            img = 'img_2.png'
+            lista.append(img)
+            exp = "3. Selecciona los productos deseados haciendo clic en ellos. Utiliza la flecha simple para enviar " \
+                  "productos individuales o la flecha doble para enviar todos los productos desde la sección de " \
+                  "'Resultados de Búsqueda' hacia la sección de 'Mercadería Seleccionada' para su traslado.\n" \
+                  "4. Después de verificar que la mercancía es correcta, haz clic en 'Siguiente' en la esquina " \
+                  "inferior derecha de la pantalla.\n" \
+                  "5. Durante esta fase del proceso, se solicitará seleccionar los productos identificados y " \
+                  "posteriormente asignarles una ubicación, seleccionándola en el almacén para luego ubicarla " \
+                  "cliqueando el botón 'Agregar'. Una vez completada esta tarea, se deberá confirmar la acción " \
+                  "haciendo clic en 'Aceptar', ubicado en la esquina inferior derecha de la pantalla."
+            lista.append(exp)
+            return finalizar(lista)
+
+        elif text == 'e' or 'atras' in text or 'menu principal' in text:
             return 'menu principal', False
         else:
             return 'error', False
