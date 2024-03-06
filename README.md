@@ -5,7 +5,7 @@
 
 
 ```bash
-git clone ssh://git@emorell-dt.dnsalias.com:13024/mellon/chatbotwms.git
+git clone git@gitlab.com:mellonsas/botifleet.git
 ```
 ### Solicitar el archivo .env para el correcto funcionamiento
 ## Funcionalidades
