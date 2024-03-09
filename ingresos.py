@@ -183,13 +183,15 @@ def option_ing(text):
     global item
     global lista
     lista = []
-    if "menu principal" in text or 'pdf' in text:
+    if "menu principal" in text or 'pdf' in text or 'menu ingresos' in text:
         item = ''
         if 'menu principal' in text:
             return 'menu principal', False
+        elif 'menu ingresos' in text:
+            return 'menu ingresos', False
         else:
             return 'pdf', False
-    if item == '':
+    elif item == '':
 
         if text == 'a' or "ingrese mal un remito" in text:
             item = 'remito'

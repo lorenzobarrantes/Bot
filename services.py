@@ -2,6 +2,7 @@ import random
 
 import requests
 
+import datos
 import egresos
 import implementacion
 import ingresos
@@ -355,12 +356,12 @@ def admin_chatbot(text, number, messageId, name):
 
     if text != 'sticker' and est_conv[number] != 'sugerencia':
 
-        if est_conv[number] == 'en curso':
+        if est_conv[number] == 'en curso' or 'menu principal' in text:
 
             if "consultas" in text or text == 'a':
                 body = "Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?"
                 footer = "Quadrant"
-                options = ["↘️ Ingresos", "↖️ Egresos", "📦 Inventario", "🗃️ Maestro de Datos", "⏪ Atras"]
+                options = ["↘️ Ingresos", "↖️ Egresos", "📦 Inventario", "⚙ Maestro de Datos", "⏪ Atras"]
 
                 listReplyData = listReply_Message(number, options, body, footer, "sed2", messageId)
                 # sticker = sticker_Message(number, get_media_id("sticker1", "sticker"))
@@ -436,9 +437,8 @@ def admin_chatbot(text, number, messageId, name):
                 sendMenu(number, inventario.menu_inv())
 
             elif 'datos' in text:
-                send(number, 'Queda que me desarrollen esta area 🙄')
-                est_conv[number] = 'en curso'
-                sendMenu(number)
+                est_conv[number] = 'consulta - datos'
+                sendMenu(number, datos.menu_dat())
 
             elif 'atras' in text:
                 est_conv[number] = 'en curso'
@@ -462,14 +462,7 @@ def admin_chatbot(text, number, messageId, name):
             elif resp == 'error':
                 error_general(number, messageId)
             else:
-                for msj in resp:
-                    if 'img_' in msj:
-                        img = image_Message(number, f"https://www.quadrant.com.ar/bot/ingresos/{msj}", '👆')
-                        send_Msj_whatsapp(img)
-                        time.sleep(1)
-                    else:
-                        send(number, msj)
-
+                send_msj_list(number, resp, "ingresos")
             if continua:
                 replyButtonData = continua_conv(number, messageId, "✅ Menu Ingresos")
                 lista.append(replyButtonData)
@@ -490,14 +483,7 @@ def admin_chatbot(text, number, messageId, name):
             elif resp == 'error':
                 error_general(number, messageId)
             else:
-                for msj in resp:
-                    if 'img_' in msj:
-                        img = image_Message(number, f"https://www.quadrant.com.ar/bot/egresos/{msj}", '👆')
-                        send_Msj_whatsapp(img)
-                        time.sleep(1)
-                    else:
-                        send(number, msj)
-
+                send_msj_list(number, resp, "egresos")
             if continua:
                 replyButtonData = continua_conv(number, messageId, "✅ Menu Egresos")
                 lista.append(replyButtonData)
@@ -507,20 +493,40 @@ def admin_chatbot(text, number, messageId, name):
             resp, continua = inventario.option_inv(text)
             if 'menu inventario' in resp:
                 send(number, inventario.menu_inv())
+            elif resp == 'menu principal':
+                est_conv[number] = 'en curso'
+                sendMenu(number)
+                continua = False
+            elif resp == 'pdf':
+                est_conv[number] = 'en curso'
+                admin_chatbot('pdf', number, messageId, name)
+            elif resp == 'error':
+                error_general(number, messageId)
             else:
-                for msj in resp:
-                    if 'img_' in msj:
-                        img = image_Message(number, f"https://www.quadrant.com.ar/bot/inventario/{msj}", '👆')
-                        send_Msj_whatsapp(img)
-                        time.sleep(1)
-                    else:
-                        send(number, msj)
+                send_msj_list(number, resp, "inventario")
             if continua:
                 replyButtonData = continua_conv(number, messageId, "✅ Menu Inventario")
                 lista.append(replyButtonData)
         ############################################################################################
         elif est_conv[number] == 'consulta - datos':
-            pass
+            resp, continua = inventario.option_inv(text)
+            if 'menu datos' in resp:
+                sendMenu(number, datos.menu_dat())
+                continua = False
+            elif resp == 'menu principal':
+                est_conv[number] = 'en curso'
+                sendMenu(number)
+                continua = False
+            elif resp == 'pdf':
+                est_conv[number] = 'en curso'
+                admin_chatbot('pdf', number, messageId, name)
+            elif resp == 'error':
+                error_general(number, messageId)
+            else:
+                send_msj_list(number, resp, "datos")
+            if continua:
+                replyButtonData = continua_conv(number, messageId, "✅ Menu Datos")
+                lista.append(replyButtonData)
         ############################################################################################
 
         elif est_conv[number] == 'implementacion':
@@ -585,8 +591,16 @@ def admin_chatbot(text, number, messageId, name):
         send_Msj_whatsapp(item)
 
 
+def send_msj_list(number, lista, folder):
+    for msj in lista:
+        if 'img_' in msj:
+            img = image_Message(number, f"https://www.quadrant.com.ar/bot/{folder}/{msj}", '👆')
+            send_Msj_whatsapp(img)
+            time.sleep(1)
+        else:
+            send(number, msj)
+
 def continua_conv(number, messageId, option):
-    est_conv[number] = 'en curso'
     options = [option, "🏡 Menu Principal"]
     body = "Espero que esto haya resuelto su consulta\n" \
            "por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta " \
@@ -659,7 +673,7 @@ def replace_start(s):
         return st
 
 # admin_chatbot('hola', '541150375327', random.randint(0,1000), 'lorenzo')
-# admin_chatbot('f', '541150375327', random.randint(0,1000), 'lorenzo')
-# admin_chatbot('suge1', '541150375327', random.randint(0,1000), 'lorenzo')
-# admin_chatbot('suge2', '541150375327', random.randint(0,1000), 'lorenzo')
-# admin_chatbot('listo', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('a', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('inventario', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('a', '541150375327', random.randint(0,1000), 'lorenzo')
+# admin_chatbot('menu inventario', '541150375327', random.randint(0,1000), 'lorenzo')

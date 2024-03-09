@@ -33,13 +33,15 @@ def opt_egr(text):
     global item
     global lista
     lista = []
-    if "menu principal" in text or 'pdf' in text:
+    if "menu principal" in text or 'pdf' in text or 'menu egresos' in text:
         item = ''
         if 'menu principal' in text:
             return 'menu principal', False
+        elif 'menu egresos' in text:
+            return 'menu egresos', False
         else:
             return 'pdf', False
-    if item == '':
+    elif item == '':
         if text == 'a':
             item = 'ot'
             exp = ''

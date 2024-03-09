@@ -31,13 +31,15 @@ def option_inv(text):
     global lista
     lista = []
     print(item)
-    if "menu principal" in text or 'pdf' in text:
+    if "menu principal" in text or 'pdf' in text or 'menu inventario' in text:
         item = ''
         if 'menu principal' in text:
             return 'menu principal', False
+        elif 'menu inventario' in text:
+            return 'menu inventario', False
         else:
             return 'pdf', False
-    if item == '':
+    elif item == '':
 
         if text == 'a' or "manual" in text:
             item = 'ayb-manual'
