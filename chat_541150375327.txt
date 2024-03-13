@@ -587,3 +587,214 @@ E. Primeros Pasos Implementación
 F. Mobile
 
 Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+
+2024-03-13 09:58:44 - Lorenzo Barrantes: gg
+2024-03-13 09:58:46 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+E. Primeros Pasos Implementación
+F. Mobile
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+
+2024-03-13 14:39:24 - Lorenzo Barrantes: daas
+2024-03-13 14:39:26 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+~E. Primeros Pasos Implementación~
+~F. Mobile~
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:39:31 - Lorenzo Barrantes: a
+2024-03-13 14:39:31 - Botifleet: Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?
+2024-03-13 14:39:38 - Lorenzo Barrantes: 📦 inventario
+2024-03-13 14:39:38 - Botifleet: 📦 Inventario
+
+Seleccione la consulta
+
+A. Alta y Baja Manual
+B. Descartar Mercadería
+C. Bloqueo Ubicación vs Mercadería
+D. Movimientos Internos
+E. Dividir Palet
+F. Menu Principal
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:39:48 - Lorenzo Barrantes: d
+2024-03-13 14:39:48 - Botifleet: Para realizar un movimiento interno dentro del almacén, por favor diríjase a la pestaña 'Almacén'. Allí, busque la posición exacta de la mercadería y al hacer clic, le aparecerá algo similar a esto: 
+2024-03-13 14:39:51 - Botifleet: A partir de ahí, haga click en "Mover".
+2024-03-13 14:39:52 - Botifleet: Al llegar a esta etapa, verá la siguiente imagen. Deberá seleccionar la nueva ubicación (escríbala y presione enter para seleccionarla) y luego indicar la cantidad que desea mover. En caso de tener palets, tiene la opción de dividirlos en esta instancia. Después, haga clic en "Mover" y se generará una orden de traslado dentro de Inventario > Órdenes de Traslado, donde podrá visualizar la orden y aceptarla. 
+2024-03-13 14:39:54 - Botifleet: Espero que esto haya resuelto su consulta
+por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta conversación, gracias. 
+2024-03-13 14:39:59 - Lorenzo Barrantes: ✅ menu inventario
+2024-03-13 14:39:59 - Botifleet: 📦 Inventario
+
+Seleccione la consulta
+
+A. Alta y Baja Manual
+B. Descartar Mercadería
+C. Bloqueo Ubicación vs Mercadería
+D. Movimientos Internos
+E. Dividir Palet
+F. Menu Principal
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:40:04 - Lorenzo Barrantes: e
+2024-03-13 14:40:04 - Botifleet: Para realizar una división de palet, por favor diríjase a la pestaña 'Almacén'. Allí, busque la posición exacta de la mercadería y al hacer clic, le aparecerá algo similar a esto: 
+2024-03-13 14:40:08 - Botifleet: A partir de ahí, haga click en "Dividir Palet".
+2024-03-13 14:40:09 - Botifleet: Al llegar a esta etapa, verá la siguiente imagen. Esta se utilizará para dividir un pallet en dos o más pallets. Deberá agregar la cantidad de bultos del primer pallet mientras que el resto formará el segundo pallet. Esta acción deberá realizarse haciendo clic en la opción "Subdividir", y debe hacerlo de la misma manera si decide formar más de dos pallets. Luego haga click en "Aceptar" para finalizar la operación de división.
+2024-03-13 14:40:11 - Botifleet: Espero que esto haya resuelto su consulta
+por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta conversación, gracias. 
+
+2024-03-13 14:45:23 - Lorenzo Barrantes: ✅ menu inventario
+2024-03-13 14:45:25 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+~E. Primeros Pasos Implementación~
+~F. Mobile~
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:45:29 - Lorenzo Barrantes: a
+2024-03-13 14:45:29 - Botifleet: Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios le gustaría explorar?
+2024-03-13 14:45:34 - Lorenzo Barrantes: 📦 inventario
+2024-03-13 14:45:34 - Botifleet: 📦 Inventario
+
+Seleccione la consulta
+
+A. Alta y Baja Manual
+B. Descartar Mercadería
+C. Bloqueo Ubicación vs Mercadería
+D. Movimientos Internos
+E. Dividir Palet
+F. Menu Principal
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:45:40 - Lorenzo Barrantes: e
+2024-03-13 14:45:40 - Botifleet: Para realizar una división de palet, por favor diríjase a la pestaña 'Almacén'. Allí, busque la posición exacta de la mercadería y al hacer clic, le aparecerá algo similar a esto: 
+2024-03-13 14:45:43 - Botifleet: A partir de ahí, haga click en "Dividir Palet".
+2024-03-13 14:45:44 - Botifleet: Al llegar a esta etapa, verá la siguiente imagen. Esta se utilizará para dividir un pallet en dos o más pallets. Deberá agregar la cantidad de bultos del primer pallet mientras que el resto formará el segundo pallet. Esta acción deberá realizarse haciendo clic en la opción "Subdividir", y debe hacerlo de la misma manera si decide formar más de dos pallets. Luego haga click en "Aceptar" para finalizar la operación de división.
+2024-03-13 14:45:47 - Botifleet: Espero que esto haya resuelto su consulta
+por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta conversación, gracias. 
+2024-03-13 14:45:54 - Lorenzo Barrantes: ✅ menu inventario
+2024-03-13 14:45:54 - Botifleet: 📦 Inventario
+
+Seleccione la consulta
+
+A. Alta y Baja Manual
+B. Descartar Mercadería
+C. Bloqueo Ubicación vs Mercadería
+D. Movimientos Internos
+E. Dividir Palet
+F. Menu Principal
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:45:59 - Lorenzo Barrantes: c
+2024-03-13 14:45:59 - Botifleet: Para realizar un bloqueo de mercadería, por favor diríjase a la pestaña 'Almacén'. Allí, busque la posición exacta de la mercadería y al hacer clic, le aparecerá algo similar a esto: 
+2024-03-13 14:46:01 - Botifleet: A partir de ahí, tiene dos opciones:
+1. Bloquear mercadería2. Bloquear ubicación
+2024-03-13 14:46:02 - Botifleet: 1. Si bloquea la mercadería, esta estará imposibilitada de realizar movimientos dentro del almacén. Sin embargo, la posición estará desbloqueada, lo que permitirá el flujo de mercadería dentro de ella. 
+2024-03-13 14:46:03 - Botifleet: 2. Si *bloquea la ubicación*, esto implicará que dicha ubicación no permitirá el flujo demercadería (in/out). En consecuencia, la mercadería dentro de esta ubicación también estará bloqueada. 
+2024-03-13 14:46:05 - Botifleet: Espero que esto haya resuelto su consulta
+por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta conversación, gracias. 
+2024-03-13 14:46:36 - Lorenzo Barrantes: ✅ menu inventario
+2024-03-13 14:46:36 - Botifleet: 📦 Inventario
+
+Seleccione la consulta
+
+A. Alta y Baja Manual
+B. Descartar Mercadería
+C. Bloqueo Ubicación vs Mercadería
+D. Movimientos Internos
+E. Dividir Palet
+F. Menu Principal
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:46:40 - Lorenzo Barrantes: b
+2024-03-13 14:46:40 - Botifleet: Para realizar un descarte de mercadería, por favor diríjase a la pestaña 'Almacén'. Allí, busque la posición exacta de la mercadería y al hacer clic, le aparecerá algo similar a esto: 
+2024-03-13 14:46:44 - Botifleet: A partir de ahí, tiene dos opciones:
+1. Descartar2. Enviar a cuarentena
+2024-03-13 14:46:45 - Botifleet: 1. Para descartar la mercadería, simplemente click en "Descartar" y elija la zona de scrap correspondiente, luego podrá elegir la cantidad de piezas deseadas para descartar. 
+2024-03-13 14:46:47 - Botifleet: 2. Para enviar a cuarentena la mercadería, simplemente click en "Enviar a Cuarentena" y elija la zona de scrap correspondiente, luego podrá elegir la cantidad de piezas deseadas para descartar. 
+2024-03-13 14:46:50 - Botifleet: Espero que esto haya resuelto su consulta
+por favor indique si quiere volver a un menu o escriba 'Finalizar' para terminar esta conversación, gracias. 
+2024-03-13 14:46:56 - Lorenzo Barrantes: 🏡 menu principal
+2024-03-13 14:46:56 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+~E. Primeros Pasos Implementación~
+~F. Mobile~
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:47:01 - Lorenzo Barrantes: e
+2024-03-13 14:47:01 - Botifleet: En este momento, no contamos con suficientes datos para procesar consultas relacionadas con móviles. Si tiene alguna pregunta, por favor envíela después de este mensaje y escribe 'Listo' cuando haya terminado. ¡Gracias por su paciencia y comprensión!
+2024-03-13 14:47:11 - Lorenzo Barrantes: listo
+2024-03-13 14:47:13 - Botifleet: Gracias por darnos la sugerencia, la estaremos revisando en cuanto 
+2024-03-13 14:47:23 - Lorenzo Barrantes: ❌ finalizar
+2024-03-13 14:47:23 - Botifleet: Perfecto! No dudes en contactarnos si tienes más preguntas. ¡Hasta luego!
+
+2024-03-13 14:47:59 - Lorenzo Barrantes: ✅ menu principal
+2024-03-13 14:48:01 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+~E. Primeros Pasos Implementación~
+~F. Mobile~
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:50:29 - Lorenzo Barrantes: b
+2024-03-13 14:50:29 - Botifleet: Gracias por reportar los errores. 
+En el siguiente documento encontraras una serie de pasos a seguir para el reporte de errores, dentro de este habra un boton para reportar via email. Porfavor, llena los espacios solicitados para hacer un correcto seguimiento de la solicitud.
+2024-03-13 14:50:33 - Botifleet: Reporte errores
+
+2024-03-13 14:51:43 - Lorenzo Barrantes: x
+2024-03-13 14:51:45 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+~E. Primeros Pasos Implementación~
+~F. Mobile~
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:51:47 - Lorenzo Barrantes: b
+2024-03-13 14:51:47 - Botifleet: Gracias por reportar los errores. 
+En el siguiente documento encontraras una serie de pasos a seguir para el reporte de errores, dentro de este habra un boton para reportar via email. Porfavor, llena los espacios solicitados para hacer un correcto seguimiento de la solicitud.
+2024-03-13 14:51:52 - Botifleet: Reporte errores
+2024-03-13 14:52:29 - Lorenzo Barrantes: ✅ menu principal
+2024-03-13 14:52:29 - Botifleet: 🏡 Menu Principal.
+
+Elija la opción que esta buscando.
+
+A. Consultas
+B. Reporte de Error
+C. Guía de Usuario
+D. Ideas/Sugerencias
+~E. Primeros Pasos Implementación~
+~F. Mobile~
+
+Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para terminarla.
+2024-03-13 14:52:37 - Lorenzo Barrantes: c
+2024-03-13 14:52:37 - Botifleet: Perfecto, por favor espera un momento.
+2024-03-13 14:52:42 - Botifleet: Documento Guia Usuario.pdf

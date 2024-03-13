@@ -25,5 +25,5 @@ stickers = {
 }
 
 document_url = "https://www.quadrant.com.ar/documentoimplementacionlogifleet.pdf"
-error_url = "https://www.quadrant.coom.ar/reporteerroreslogifleet.pdf"
+error_url = "https://www.quadrant.com.ar/reporteerroreslogifleet.pdf"
 mobile_url = "https://www.quadrant.com.ar/documentacionlogifleetapp.pdf"

@@ -288,8 +288,8 @@ def sendMenu(number, menu=("🏡 Menu Principal.\n"
                            "B. Reporte de Error\n"
                            "C. Guía de Usuario\n"
                            "D. Ideas/Sugerencias\n"
-                           "E. Primeros Pasos Implementación\n"
-                           "F. Mobile\n"
+                           "~E. Primeros Pasos Implementación~\n"
+                           "~F. Mobile~\n"
                            "\n"
                            'Recuerde puede escribir "Finalizar" en cualquier momento de la conversación para '
                            'terminarla.'
@@ -399,8 +399,13 @@ def admin_chatbot(text, number, messageId, name):
                 send(number, mensaje)
 
             elif 'implementacion' in text or text == 'e':
-                est_conv[number] = 'implementacion'
-                sendMenu(number, implementacion.menu_imp())
+                # est_conv[number] = 'implementacion'
+                # sendMenu(number, implementacion.menu_imp())
+                send(number, "En este momento, no contamos con suficientes datos para procesar consultas relacionadas "
+                             "con móviles. Si tiene alguna pregunta, por favor envíela después de este mensaje y "
+                             "escribe 'Listo' cuando haya terminado. ¡Gracias por su paciencia y comprensión!")
+                est_conv[number] = 'sugerencia'
+                return
 
             elif 'mobile' in text or text == 'f':
                 send(number, "En este momento, no contamos con suficientes datos para procesar consultas relacionadas "
@@ -568,7 +573,7 @@ def admin_chatbot(text, number, messageId, name):
                                  f"Numero de telefono: {number}\n"
                                  f"Sugerencia:\n"
                                  f"{texto_sugerencia}")
-            send(number, 'Gracias por darnos la sugerencia, la estaremos revisando en cuanto ')
+            send(number, 'Gracias por darnos la sugerencia, la estaremos revisando en cuanto podamos.')
             est_conv[number] = 'en curso'
             replyButtonData = cont_conv(number, name, messageId)
             lista.append(replyButtonData)
