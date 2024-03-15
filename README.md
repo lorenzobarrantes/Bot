@@ -100,3 +100,4 @@ en body, seleccionar "raw" y tipo "JSON", no olvidar agregar tu número
 }
 ```
 
+video: https://www.youtube.com/watch?v=puYWiZDJnL0&ab_channel=bigdateros 
