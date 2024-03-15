@@ -21,10 +21,8 @@ def obtain_Msj_whatsapp(message, number):
     elif typeMessage == 'interactive' and message['interactive']['type'] == 'button_reply':
         text = message['interactive']['button_reply']['title']
     elif typeMessage == 'image':
-        send(number, "Por favor, no envie imagenes.")
         text = ''
     elif typeMessage == 'audio':
-        send(number, 'Por favor, no envie audios')
         text = ''
     elif typeMessage == 'sticker':
         text = 'sticker'
