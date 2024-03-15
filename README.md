@@ -5,7 +5,7 @@
 
 
 ```bash
-git clone git@gitlab.com:mellonsas/botifleet.git
+git clone https://github.com/lorenzobarrantes/Bot.git
 ```
 ### Solicitar el archivo .env para el correcto funcionamiento
 ## Funcionalidades
