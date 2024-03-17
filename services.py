@@ -244,3 +244,6 @@ def markRead_Message(messageId):
 
 def admin_chatbot(text, number, messageId, name):
     pass
+
+def replace_start(s):
+    pass
